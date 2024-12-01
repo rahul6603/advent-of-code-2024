@@ -15,7 +15,13 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
     .toString(16)
     .padStart(32, '0')
 
-/**
- * The cleaner shorthand for printing output.
- */
-fun Any?.println() = println(this)
+fun convertToIntLists(input: List<String>): Pair<MutableList<Int>, MutableList<Int>> {
+    var firstList = mutableListOf<Int>()
+    var secondList = mutableListOf<Int>()
+    for (str in input) {
+        val (firstElement, secondElement) = str.split("   ").map { it.toInt() }
+        firstList.add(firstElement)
+        secondList.add(secondElement)
+    }
+    return Pair(firstList, secondList)
+}
