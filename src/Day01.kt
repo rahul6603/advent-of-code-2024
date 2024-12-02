@@ -2,7 +2,7 @@ import kotlin.math.abs
 
 fun main() {
     fun part1(input: List<String>): Int {
-        val (firstList, secondList) = convertToIntLists(input).toList().map { it.sorted() }
+        val (firstList, secondList) = convertToIntListsByColumn(input).toList().map { it.sorted() }
         var sum = 0
         for (idx in firstList.indices) {
             sum += abs(firstList[idx] - secondList[idx])
@@ -11,7 +11,7 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        val (firstList, secondList) = convertToIntLists(input).toList().map { it.sorted() }
+        val (firstList, secondList) = convertToIntListsByColumn(input).toList().map { it.sorted() }
         var sum = 0
         for (item in firstList) {
             sum += item * secondList.count { it == item }
