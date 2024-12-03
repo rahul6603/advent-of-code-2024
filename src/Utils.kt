@@ -8,6 +8,8 @@ import kotlin.math.max
  */
 fun readInput(name: String) = Path("src/$name.txt").readText().trim().lines()
 
+fun readInputAsOneLine(name: String) = Path("src/$name.txt").readText().trim()
+
 fun convertToIntListsByColumn(input: List<String>): Pair<MutableList<Int>, MutableList<Int>> {
     val firstList = mutableListOf<Int>()
     val secondList = mutableListOf<Int>()
