@@ -6,7 +6,7 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         var safeReports = 0
-        val intLists = convertToIntListsByRow(input)
+        val intLists = convertToIntListsByRow(input, ' ')
         for (list in intLists) {
             if (isSafeReport(list)) safeReports++
         }
@@ -15,7 +15,7 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         var safeReports = 0
-        val intLists = convertToIntListsByRow(input)
+        val intLists = convertToIntListsByRow(input, ' ')
         for (list in intLists) {
             if (isSafeReport(list)) safeReports++
             else {

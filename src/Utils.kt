@@ -21,10 +21,10 @@ fun convertToIntListsByColumn(input: List<String>): Pair<MutableList<Int>, Mutab
     return Pair(firstList, secondList)
 }
 
-fun convertToIntListsByRow(input: List<String>): List<List<Int>> {
+fun convertToIntListsByRow(input: List<String>, delimiter : Char): List<List<Int>> {
     val intLists = mutableListOf<MutableList<Int>>()
     for (str in input) {
-        intLists.add(str.split(' ').map { it.toInt() }.toMutableList())
+        intLists.add(str.split(delimiter).map { it.toInt() }.toMutableList())
     }
     return intLists
 }
