@@ -21,12 +21,20 @@ fun convertToIntListsByColumn(input: List<String>): Pair<MutableList<Int>, Mutab
     return Pair(firstList, secondList)
 }
 
-fun convertToIntListsByRow(input: List<String>, delimiter : Char): List<List<Int>> {
+fun convertToIntListsByRow(input: List<String>, vararg delimiter : Char): List<List<Int>> {
     val intLists = mutableListOf<MutableList<Int>>()
     for (str in input) {
-        intLists.add(str.split(delimiter).map { it.toInt() }.toMutableList())
+        intLists.add(str.split(*delimiter).filter { it != "" }.map { it.toInt() }.toMutableList())
     }
     return intLists
+}
+
+fun convertToLongListsByRow(input: List<String>, vararg delimiter : Char): List<List<Long>> {
+    val longLists = mutableListOf<MutableList<Long>>()
+    for (str in input) {
+        longLists.add(str.split(*delimiter).filter { it != "" }.map { it.toLong() }.toMutableList())
+    }
+    return longLists
 }
 
 fun isStrictlyMonotone(list: List<Int>): Boolean {
