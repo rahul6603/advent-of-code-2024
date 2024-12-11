@@ -2,6 +2,7 @@ import kotlin.io.path.Path
 import kotlin.io.path.readText
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.pow
 
 fun readInput(name: String) = Path("src/$name.txt").readText().trim().lines()
 
@@ -18,7 +19,7 @@ fun convertToIntListsByColumn(input: List<String>): Pair<MutableList<Int>, Mutab
     return Pair(firstList, secondList)
 }
 
-fun convertToIntListsByRow(input: List<String>, vararg delimiter : Char): List<List<Int>> {
+fun convertToIntListsByRow(input: List<String>, vararg delimiter: Char): List<List<Int>> {
     val intLists = mutableListOf<MutableList<Int>>()
     for (str in input) {
         intLists.add(str.split(*delimiter).filter { it != "" }.map { it.toInt() }.toMutableList())
@@ -26,7 +27,7 @@ fun convertToIntListsByRow(input: List<String>, vararg delimiter : Char): List<L
     return intLists
 }
 
-fun convertToLongListsByRow(input: List<String>, vararg delimiter : Char): List<List<Long>> {
+fun convertToLongListsByRow(input: List<String>, vararg delimiter: Char): List<List<Long>> {
     val longLists = mutableListOf<MutableList<Long>>()
     for (str in input) {
         longLists.add(str.split(*delimiter).filter { it != "" }.map { it.toLong() }.toMutableList())
@@ -49,4 +50,21 @@ fun maximumDifferenceOfAdjacents(list: List<Int>): Int {
         maxDifference = max(maxDifference, abs(list[idx + 1] - list[idx]))
     }
     return maxDifference
+}
+
+fun lengthOfLong(long: Long): Int {
+    var count = 0
+    var num = long
+    while (num != 0L) {
+        num /= 10
+        count++
+    }
+    return count
+}
+
+fun splitLongIntoTwoHalves(long: Long): Pair<Long, Long> {
+    val length = lengthOfLong(long)
+    val firstHalf = long / 10.0.pow(length / 2)
+    val secondHalf = long % 10.0.pow(length / 2)
+    return Pair(firstHalf.toLong(), secondHalf.toLong())
 }
