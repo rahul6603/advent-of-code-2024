@@ -1,38 +1,27 @@
 fun main() {
 
-    val memo = List(76) { mutableMapOf<List<Long>, Long>() }
+    val memo = List(76) { mutableMapOf<Long, Long>() }
 
-    fun part1and2(input: List<Long>, blinks: Int): Long {
-        if (blinks == 0) return input.size.toLong()
-        if (input in memo[blinks]) {
-            return memo[blinks][input]!!
+    fun part1and2(stone: Long, blinks: Int): Long {
+        if (blinks == 0) return 1
+        if (stone in memo[blinks]) {
+            return memo[blinks][stone]!!
         }
         var numStones = 0L
-        for (inputStone in input) {
-            val listOfStones = mutableListOf(inputStone)
-            var stoneIdx = 0
-            while (stoneIdx < listOfStones.size) {
-                val stone = listOfStones[stoneIdx]
-                when {
-                    stone == 0L -> listOfStones[stoneIdx] = 1L
-                    lengthOfLong(stone) % 2 == 0 -> {
-                        val (firstHalf, secondHalf) = splitLongIntoTwoHalves(stone)
-                        listOfStones.add(stoneIdx + 1, secondHalf)
-                        listOfStones[stoneIdx] = firstHalf
-                        stoneIdx++
-                    }
-
-                    else -> listOfStones[stoneIdx] *= 2024L
-                }
-                stoneIdx++
+        when {
+            stone == 0L -> numStones += part1and2(1, blinks - 1)
+            lengthOfLong(stone) % 2 == 0 -> {
+                val (firstHalf, secondHalf) = splitLongIntoTwoHalves(stone)
+                numStones += part1and2(firstHalf, blinks - 1) + part1and2(secondHalf, blinks - 1)
             }
-            numStones += part1and2(listOfStones, blinks - 1)
+
+            else -> numStones += part1and2(stone * 2024, blinks - 1)
         }
-        memo[blinks][input] = numStones
+        memo[blinks][stone] = numStones
         return numStones
     }
 
     val input = readInputAsOneLine("Day11").split(" ").map { it.toLong() }
-    println(part1and2(input, 25))
-    println(part1and2(input, 75))
+    println(input.sumOf { part1and2(it, 25) })
+    println(input.sumOf { part1and2(it, 75) })
 }
