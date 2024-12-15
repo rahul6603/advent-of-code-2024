@@ -68,3 +68,14 @@ fun splitLongIntoTwoHalves(long: Long): Pair<Long, Long> {
     val secondHalf = long % 10.0.pow(length / 2)
     return Pair(firstHalf.toLong(), secondHalf.toLong())
 }
+
+fun findInitialPosition(input1: List<MutableList<Char>>, initialChar: Char): Pair<Int, Int> {
+    for (row in input1.indices) {
+        for (col in input1[0].indices) {
+            if (input1[row][col] == initialChar) {
+                return Pair(row, col)
+            }
+        }
+    }
+    return Pair(-1, -1)
+}

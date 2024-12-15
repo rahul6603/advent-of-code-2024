@@ -12,17 +12,6 @@ fun main() {
 
     val directionList = listOf(-1 to 0, 0 to 1, 1 to 0, 0 to -1) // Up, Right, Down, Left
 
-    fun findInitialPosition(input: List<MutableList<Char>>): Pair<Int, Int> {
-        for (row in input.indices) {
-            for (col in input[0].indices) {
-                if (input[row][col] == '^') {
-                    return Pair(row, col)
-                }
-            }
-        }
-        return Pair(-1, -1)
-    }
-
     tailrec fun traverseGrid(
         input: List<MutableList<Char>>,
         currentPosition: Pair<Int, Int>,
@@ -51,14 +40,14 @@ fun main() {
     fun isValidPosition(input: List<MutableList<Char>>, row: Int, col: Int): Boolean {
         var trialInput = input.map { it.toMutableList() }
         trialInput[row][col] = '#'
-        val currentPosition = findInitialPosition(trialInput)
+        val currentPosition = findInitialPosition(trialInput, '^')
         val currentDirectionIdx = 0
         return traverseGrid(trialInput, currentPosition, currentDirectionIdx)
     }
 
     fun part1(input: List<MutableList<Char>>): Int {
         var input = input
-        val currentPosition = findInitialPosition(input)
+        val currentPosition = findInitialPosition(input, '^')
         val currentDirectionIdx = 0
         traverseGrid(input, currentPosition, currentDirectionIdx)
         return input.sumOf { it.count { char -> char == 'X' } }
